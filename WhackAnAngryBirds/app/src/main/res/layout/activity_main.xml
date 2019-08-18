@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_linear_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/game_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/anton"
+        android:gravity="center"
+        android:text="WHACK AN "
+        android:textSize="35dp"
+        android:textColor="@android:color/black"
+        />
+
+    <ImageView
+        android:id="@+id/logo_img"
+        android:layout_width="match_parent"
+        android:layout_height="87dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="30dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:src="@drawable/angry_birds_logo" />
+
+    <TextView
+        android:id="@+id/name_text"
+        android:layout_width="153dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Name:"
+        android:textColor="@android:color/black"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/player_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Enter your name"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="20dp"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="138dp"
+            android:layout_height="301dp"
+            android:src="@drawable/kisspng_angry_birds"
+            android:layout_marginTop="30dp"/>
+
+        <Button
+            android:id="@+id/start_game_btn"
+            android:layout_width="130dp"
+            android:layout_height="72dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@android:color/holo_blue_light"
+            android:text="Start Game"
+            android:textColor="#ffff"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
