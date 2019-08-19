@@ -13,13 +13,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="20dp">
+
         <TextView
             android:id="@+id/text_view_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SCORE : "
             android:fontFamily="@font/anton"
-            android:textSize="15dp"/>
+            android:text="SCORE : "
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/score"
@@ -40,7 +41,7 @@
             android:layout_width="38dp"
             android:layout_height="31dp"
             android:src="@drawable/heart"
-           />
+            />
 
         <ImageView
             android:id="@+id/heart_img_3"
@@ -54,21 +55,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-    <TextView
-        android:id="@+id/text_view_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TIME : "
-        android:fontFamily="@font/anton"
-        android:textSize="15dp"/>
+        <TextView
+            android:id="@+id/text_view_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TIME : "
+            android:fontFamily="@font/anton"
+            android:textSize="15dp"/>
 
-    <TextView
-        android:id="@+id/timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="30"
-        android:fontFamily="@font/anton"
-        android:textSize="15dp"/>
+        <TextView
+            android:id="@+id/timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30"
+            android:fontFamily="@font/anton"
+            android:textSize="15dp"/>
 
     </LinearLayout>
 </LinearLayout>

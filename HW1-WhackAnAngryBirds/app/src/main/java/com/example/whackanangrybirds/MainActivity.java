@@ -10,7 +10,7 @@ import android.widget.Button;
 import static com.example.whackanangrybirds.R.id.start_game_btn;
 
 public class MainActivity extends AppCompatActivity {
-private Button start_game_btn;
+    private Button start_game_btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

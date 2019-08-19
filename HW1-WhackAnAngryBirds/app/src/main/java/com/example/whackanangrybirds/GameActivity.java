@@ -1,8 +1,8 @@
 package com.example.whackanangrybirds;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -35,7 +35,7 @@ public class GameActivity extends AppCompatActivity {
         timer=findViewById(R.id.timer);
         GameTimer();
 
-       LinearLayout gameLayout =findViewById(R.id.game_linear_layout);
+        LinearLayout gameLayout =findViewById(R.id.game_linear_layout);
         gridLayout= createGridLayout(COL_SIZE,ROW_SIZE);
         gameLayout.addView(gridLayout);
         for (int i = 0; i <COL_SIZE*ROW_SIZE ; i++) {
@@ -104,7 +104,7 @@ public class GameActivity extends AppCompatActivity {
 
 
 
-   private void BirdInRandomHole(){
+    private void BirdInRandomHole(){
         int random = new Random().nextInt(COL_SIZE*ROW_SIZE-1);
         ImageView currentAngryBirds = birds_img[random];
         currentAngryBirds.setVisibility(View.VISIBLE);
@@ -114,7 +114,7 @@ public class GameActivity extends AppCompatActivity {
 
 
 
-}
+    }
 
 
 
