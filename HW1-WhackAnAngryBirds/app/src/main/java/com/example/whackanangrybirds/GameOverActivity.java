@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class GameOverActivity extends AppCompatActivity {
 
+    public static final String EXTRA_PLAYER_NAME = "GameOverActivity.EXTRA_PLAYER_NAME";
     private String playerName;
     private int score;
     private int life;
@@ -34,5 +36,11 @@ public class GameOverActivity extends AppCompatActivity {
         String txt=String.format("%s %s",playerName,isWinner ? "win !!!":"lose :(");
         isWinnerView.setText(txt);
 
+    }
+
+    public void ClickNewGame(View view) {
+        Intent intent = new Intent(this,GameActivity.class);
+        intent.putExtra(EXTRA_PLAYER_NAME, playerName);
+        startActivity(intent);
     }
 }

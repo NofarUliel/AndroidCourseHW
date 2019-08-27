@@ -1,23 +1,20 @@
 package com.example.whackanangrybirds;
 
 
-import androidx.appcompat.app.AlertDialog;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-
+import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-
 import java.util.Locale;
 import java.util.Random;
 import java.util.Timer;
@@ -32,10 +29,11 @@ public class GameActivity extends AppCompatActivity {
 
     private final int COL_SIZE = 3;
     private final int ROW_SIZE = 3;
-    private final int HIT_POINTS=10;
+    private final int HIT_POINTS=5;
 
     private ImageView[] birds_img =new ImageView[COL_SIZE*ROW_SIZE];
     private Timer game_timer= new Timer();
+   private CountDownTimer timer_down;
     private GridLayout gridLayout;
     private TextView timer;
     private TextView score;
@@ -51,22 +49,28 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        //get player name from main activity
+        //get player name from main activity of game over activity
         Intent intent = getIntent();
-        playerName = intent.getStringExtra(MainActivity.EXTRA_TEXT);
+        playerName = intent.getStringExtra(GameOverActivity.EXTRA_PLAYER_NAME);
+        if(playerName==null){
+              playerName = intent.getStringExtra(MainActivity.EXTRA_TEXT);
+        }
+
 
         timer=findViewById(R.id.timer);
         score=findViewById(R.id.score);
         GameTimer();
 
+        //set size of grid layout
+        gridLayout=findViewById(R.id.grid_layout);
+        gridLayout.setColumnCount(COL_SIZE);
+        gridLayout.setRowCount(ROW_SIZE);
 
-        LinearLayout gameLayout =findViewById(R.id.game_linear_layout);
-        gridLayout= createGridLayout(COL_SIZE,ROW_SIZE);
-        gameLayout.addView(gridLayout);
-        
         for (int i = 0; i <COL_SIZE*ROW_SIZE ; i++) {
+
             LinearLayout cell=new LinearLayout(this);
             cell.setOrientation(LinearLayout.VERTICAL);
+
 
             final ImageView bird_img =new ImageView(this);
             bird_img.setImageResource(R.drawable.blue_bird);
@@ -75,7 +79,7 @@ public class GameActivity extends AppCompatActivity {
 
             ImageView hole_img=new ImageView(this);
             hole_img.setImageResource(R.drawable.hole);
-            hole_img.setPadding(50,70,50,70);
+            hole_img.setPadding(50,0,50,10);
 
             cell.addView(bird_img);
             cell.addView(hole_img);
@@ -101,8 +105,6 @@ public class GameActivity extends AppCompatActivity {
                 }
             });
 
-
-
         }
         // Timer to pop up bird from his hole
         game_timer.schedule(new TimerTask() {
@@ -118,17 +120,10 @@ public class GameActivity extends AppCompatActivity {
             }},2000,2000);
     }
 
-    private GridLayout createGridLayout(int col, int row) {
-        GridLayout gridLayout =new GridLayout(getApplicationContext());
-        gridLayout.setColumnCount(col);
-        gridLayout.setRowCount(row);
 
-        return gridLayout;
-
-    }
 
     private void GameTimer(){
-         new CountDownTimer(mTimeLeftInMillis, 1000) {
+        timer_down= new CountDownTimer(mTimeLeftInMillis, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 mTimeLeftInMillis = millisUntilFinished;
@@ -199,7 +194,9 @@ public class GameActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_PLAYER_LIFE, playerLifeCounter);
         intent.putExtra(EXTRA_PLAYER_IS_WINNER, isWinner);
 
+        Log.d("end game", "EndGame: start");
         game_timer.cancel();
+        timer_down.cancel();
         startActivity(intent);
         this.finish();
 

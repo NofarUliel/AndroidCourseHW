@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:layout_marginTop="20dp"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp">
 
@@ -22,29 +21,32 @@
 
     <ImageView
         android:id="@+id/logo_img"
+        android:layout_width="698dp"
+        android:layout_height="75dp"
         android:layout_below="@id/game_text"
-        android:layout_width="wrap_content"
-        android:layout_height="87dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:src="@drawable/angry_birds_logo" />
-
+<LinearLayout
+    android:id="@+id/linear_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/logo_img"
+    android:layout_centerHorizontal="true">
     <TextView
         android:id="@+id/name_text"
-        android:layout_width="154dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/logo_img"
-        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="49dp"
+        android:gravity="center_vertical"
         android:text="Name:"
         android:textColor="@android:color/black"
         android:textSize="20dp" />
 
     <EditText
         android:id="@+id/player_name"
-        android:layout_below="@+id/name_text"
-        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@+id/name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Enter your name"
@@ -52,26 +54,29 @@
         android:inputType="textPersonName"
         android:layout_marginBottom="20dp"/>
 
+</LinearLayout>
 
-        <ImageView
-            android:id="@+id/angry_img"
-            android:layout_width="138dp"
-            android:layout_height="301dp"
-            android:src="@drawable/kisspng_angry_birds"
-            android:layout_below="@+id/player_name"
-            android:layout_alignParentLeft="true"/>
+
+    <ImageView
+        android:layout_width="215dp"
+        android:layout_height="277dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/linear_layout"
+        android:layout_alignLeft="@+id/logo_img"
+        android:src="@drawable/kisspng_angry_birds" />
 
         <Button
             android:id="@+id/start_game_btn"
             android:layout_width="130dp"
             android:layout_height="72dp"
-            android:layout_below="@+id/player_name"
-            android:layout_toRightOf="@+id/angry_img"
+            android:layout_below="@+id/linear_layout"
             android:layout_centerHorizontal="true"
             android:backgroundTint="@android:color/holo_blue_light"
             android:text="Start Game"
             android:textColor="#ffff"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+           />
 
 
 
