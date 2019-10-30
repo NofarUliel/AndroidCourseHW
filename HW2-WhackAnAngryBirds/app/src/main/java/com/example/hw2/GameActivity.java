@@ -132,7 +132,6 @@ public class GameActivity extends AppCompatActivity {
             increasePoint.setTextColor(Color.parseColor("#76e25e"));
             increasePoint.setAlpha(0f);
             params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-//            params.addRule(RelativeLayout.RIGHT_OF,i);
             params.addRule(RelativeLayout.ABOVE,(100*i));
             params.addRule(RelativeLayout.CENTER_HORIZONTAL);
             increasePoint.setLayoutParams(params);
@@ -147,10 +146,9 @@ public class GameActivity extends AppCompatActivity {
             ImageView box_img=new ImageView(this);
             box_img.setImageResource(R.drawable.box);
             box_img.setId(100*i);
-
             params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-           params.addRule(RelativeLayout.BELOW,i);
+            params.addRule(RelativeLayout.BELOW,i);
             box_img.setLayoutParams(params);
 
 
@@ -296,15 +294,15 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-//    private int getScreenHeight(Context context) {
-//        DisplayMetrics displayMetrics = new DisplayMetrics();
-//        ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//        return displayMetrics.heightPixels;
-//    }
-//    private int getScreenWidth(Context context) {
-//        DisplayMetrics displayMetrics = new DisplayMetrics();
-//        ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//        return displayMetrics.widthPixels;
-//    }
+    private int getScreenHeight(Context context) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics.heightPixels;
+    }
+    private int getScreenWidth(Context context) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics.widthPixels;
+    }
 
 }

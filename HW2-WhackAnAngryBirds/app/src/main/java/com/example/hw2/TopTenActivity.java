@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -115,23 +114,23 @@ public class TopTenActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-    public void displayDataFromDB(){
+    public void displayDataFromDB() {
         Log.d("DISPLAY DB", "displayDataFromDB: start");
 
 
         TableLayout table = findViewById(R.id.table_layout);
-        TextView index , player_name,score,index_title,name_title,score_title;
+        TextView index, player_name, score, index_title, name_title, score_title;
 
 
-        TableRow titles=new TableRow(this);
+        TableRow titles = new TableRow(this);
         titles.setBackgroundColor(Color.parseColor("#81d4fa"));
         index_title = new TextView(this);
-        name_title=new TextView(this);
-        score_title=new TextView(this);
+        name_title = new TextView(this);
+        score_title = new TextView(this);
 
-        index_title.setPadding(0,0,40,0);
-        name_title.setPadding(0,0,40,0);
-        score_title.setPadding(0,0,40,0);
+        index_title.setPadding(0, 0, 40, 0);
+        name_title.setPadding(0, 0, 40, 0);
+        score_title.setPadding(0, 0, 40, 0);
 
         index_title.setGravity(View.TEXT_ALIGNMENT_CENTER);
         name_title.setGravity(View.TEXT_ALIGNMENT_CENTER);
@@ -150,12 +149,13 @@ public class TopTenActivity extends AppCompatActivity {
         titles.addView(score_title);
         table.addView(titles);
 
-        for(int i=0;i<playerDB.size();i++) {
+
+        for (int i = 0; i < playerDB.size(); i++) {
 
             index = new TextView(this);
             index.setPadding(0, 0, 40, 0);
             index.setGravity(View.TEXT_ALIGNMENT_CENTER);
-            index.setText(i+1+"");
+            index.setText(i + 1 + "");
             index.setTextSize(15f);
 
 
@@ -166,11 +166,10 @@ public class TopTenActivity extends AppCompatActivity {
             player_name.setTextSize(15f);
 
 
-
             score = new TextView(this);
             score.setPadding(0, 0, 40, 0);
             score.setGravity(View.TEXT_ALIGNMENT_CENTER);
-            score.setText(playerDB.get(i).getScore()+"");
+            score.setText(playerDB.get(i).getScore() + "");
             score.setTextSize(15f);
 
 
@@ -183,8 +182,6 @@ public class TopTenActivity extends AppCompatActivity {
 
         }
 
-
     }
-
 
 }
