@@ -5,6 +5,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import android.widget.PopupMenu;
@@ -188,17 +189,19 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
    public class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
 
-       TextView list_name,update_name, list_note,update_note,list_date;
-       String id;
-       DatabaseReference DB;
-       ImageButton save_btn,delete_btn;
+      private TextView list_name,update_name, list_note,update_note,list_date;
+      private String id;
+      private DatabaseReference DB;
+      private ImageButton delete_btn;
+      private  Button cancel_btn,update_btn;
         public MyMenuItemClickListener(View itemView,String id,  DatabaseReference DB) {
             list_name = itemView.findViewById(R.id.name);
             list_note = itemView.findViewById(R.id.note);
             update_name = itemView.findViewById(R.id.update_name);
             update_note = itemView.findViewById(R.id.update_note);
             list_date = itemView.findViewById(R.id.date);
-            save_btn = itemView.findViewById(R.id.save_btn);
+            cancel_btn = itemView.findViewById(R.id.cancel_btn);
+            update_btn=itemView.findViewById(R.id.update_btn);
             delete_btn = itemView.findViewById(R.id.delete_btn);
             this.id=id;
             this.DB=DB;
@@ -208,12 +211,12 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
 
-                case R.id.edit:
-                   EditList();
+                case R.id.edit_name:
+                   EditName();
                     return true;
 
-                case R.id.share:
-                    Log.d("SHARE", "onMenuItemClick: ");
+                case R.id.edit_note:
+                    EditNote();
                     return true;
 
             }
@@ -222,37 +225,78 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
             return false;
         }
 
-       public  void EditList(){
+       public  void EditName(){
 
            list_name.setVisibility(View.INVISIBLE);
            update_name.setText(list_name.getText().toString());
            update_name.setVisibility(View.VISIBLE);
-           list_note.setVisibility(View.INVISIBLE);
-           update_note.setText(list_note.getText().toString());
-           update_note.setVisibility(View.VISIBLE);
            delete_btn.setVisibility(View.INVISIBLE);
-           save_btn.setVisibility(View.VISIBLE);
+           update_btn.setVisibility(View.VISIBLE);
+           cancel_btn.setVisibility(View.VISIBLE);
 
 
-           save_btn.setOnClickListener(new View.OnClickListener() {
+           update_btn.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
                    String new_name=update_name.getText().toString();
-                   String new_note=update_note.getText().toString();
-
                    update_name.setVisibility(View.INVISIBLE);
                    list_name.setVisibility(View.VISIBLE);
-                   update_note.setVisibility(View.INVISIBLE);
-                   list_note.setVisibility(View.VISIBLE);
                    delete_btn.setVisibility(View.VISIBLE);
-                   save_btn.setVisibility(View.INVISIBLE);
+                   update_btn.setVisibility(View.INVISIBLE);
+                   cancel_btn.setVisibility(View.INVISIBLE);
                    //update database
-                   DB.child(id).child("note").setValue(new_note);
                    DB.child(id).child("name").setValue(new_name);
                }
            });
 
+           cancel_btn.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   update_btn.setVisibility(View.INVISIBLE);
+                   cancel_btn.setVisibility(View.INVISIBLE);
+                   update_name.setVisibility(View.INVISIBLE);
+                   list_name.setVisibility(View.VISIBLE);
+                   delete_btn.setVisibility(View.VISIBLE);
 
+               }
+           });
+
+
+
+       }
+
+       public void EditNote(){
+
+           list_note.setVisibility(View.INVISIBLE);
+           update_note.setText(list_note.getText().toString());
+           update_note.setVisibility(View.VISIBLE);
+           delete_btn.setVisibility(View.INVISIBLE);
+           update_btn.setVisibility(View.VISIBLE);
+           cancel_btn.setVisibility(View.VISIBLE);
+           update_btn.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   String new_note=update_note.getText().toString();
+
+
+                   update_note.setVisibility(View.INVISIBLE);
+                   list_note.setVisibility(View.VISIBLE);
+                   delete_btn.setVisibility(View.VISIBLE);
+                   update_btn.setVisibility(View.INVISIBLE);
+                   cancel_btn.setVisibility(View.INVISIBLE);
+//                  update database
+                   DB.child(id).child("note").setValue(new_note);
+               }
+           });
+
+           cancel_btn.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   delete_btn.setVisibility(View.VISIBLE);
+                   update_btn.setVisibility(View.INVISIBLE);
+                   cancel_btn.setVisibility(View.INVISIBLE);
+               }
+           });
 
        }
 

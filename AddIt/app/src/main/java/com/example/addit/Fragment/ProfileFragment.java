@@ -73,7 +73,6 @@ public class ProfileFragment extends Fragment {
     private Button logout_btn;
     private String cameraPermissions[] = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private String storagePermissions[] = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-
     private ProgressDialog dialog;
 
     public ProfileFragment() {
