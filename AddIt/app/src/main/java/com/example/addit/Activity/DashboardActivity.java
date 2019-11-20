@@ -39,7 +39,7 @@ public class DashboardActivity extends AppCompatActivity {
                             selectedFragment=new NotificationsFragment();
                         break;
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).addToBackStack(null).commit();
                 return true;
             }
         });

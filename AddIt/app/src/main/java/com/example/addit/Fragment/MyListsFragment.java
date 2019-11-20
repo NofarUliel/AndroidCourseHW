@@ -2,8 +2,10 @@ package com.example.addit.Fragment;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -80,7 +82,7 @@ public class MyListsFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
 
 
-        shoppingAdapter = new ShoppingListAdapter(DB);
+        shoppingAdapter = new ShoppingListAdapter(DB,this.getContext());
         recyclerView.setAdapter(shoppingAdapter);
         plus_btn = view.findViewById(R.id.add_list_btn);
         msg=view.findViewById(R.id.my_list_msg);
@@ -157,11 +159,10 @@ public class MyListsFragment extends Fragment {
                 dialog.dismiss();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     ShoppingListData list = ds.getValue(ShoppingListData.class);
-//                    Log.d(TAG, "onDataChange: "+list.getMembers()+"current="+currentUser+"result="+list.getMembers().contains(userId));
                     if(list.getMembers().contains(userId))
                         shoppingLists.add(list);
 
-                    shoppingAdapter = new ShoppingListAdapter(DB, shoppingLists);
+                    shoppingAdapter = new ShoppingListAdapter(DB, shoppingLists,getContext());
                     recyclerView.setAdapter(shoppingAdapter);
                 }
                 if(shoppingLists.isEmpty()) {

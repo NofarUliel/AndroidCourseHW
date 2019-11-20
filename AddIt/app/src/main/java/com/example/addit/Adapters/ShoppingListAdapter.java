@@ -1,4 +1,8 @@
 package com.example.addit.Adapters;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -8,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -23,6 +29,7 @@ import com.example.addit.Model.Invitation;
 import com.example.addit.Model.ShoppingListData;
 import com.example.addit.R;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,14 +46,18 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     private List<ShoppingListData> shoppingList;
     private String userId=FirebaseAuth.getInstance().getCurrentUser().getUid();
     private View view;
+    private Context context;
 
-    public ShoppingListAdapter(DatabaseReference DB){
+    public ShoppingListAdapter(DatabaseReference DB, Context context){
         this.DB=DB;
         this.shoppingList = new ArrayList<>();
+        this.context=context;
     }
-    public ShoppingListAdapter(DatabaseReference DB,List<ShoppingListData> shoppingList) {
+    public ShoppingListAdapter(DatabaseReference DB,List<ShoppingListData> shoppingList,Context context) {
         this.DB = DB;
        this.shoppingList=shoppingList;
+        this.context=context;
+
     }
 
 
@@ -125,33 +136,68 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
             delete_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DB.child(id).removeValue()
-                           .addOnFailureListener(new OnFailureListener() {
-                               @Override
-                               public void onFailure(@NonNull Exception e) {
-                                   Log.e(TAG, "onFailure: ",e );
-                               }
-                           });
+                    final ProgressDialog dialog=new ProgressDialog(context);
+                    dialog.setMessage("Delete shopping list");
 
-                    FirebaseDatabase.getInstance().getReference().child("Invitation")
-                            .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                Invitation invitation = ds.getValue(Invitation.class);
-                                if(invitation.getListID().equals(id))
-                                    ds.getRef().removeValue();
-                            }
-                        }
+                    AlertDialog.Builder builder= new AlertDialog.Builder(context);
+                    builder.setTitle("Are you sure you want to delete this shopping list?");
 
+                    LinearLayout linearLayout=new LinearLayout(context);
+                    linearLayout.setOrientation(LinearLayout.VERTICAL);
+                    linearLayout.setPadding(10,10,10,10);
+                    builder.setView(linearLayout);
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Log.e(TAG, "onCancelled: ",databaseError.toException() );
+                        public void onClick(DialogInterface dia, int which) {
+                            dia.dismiss();
+                            dialog.dismiss();
 
                         }
                     });
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dial, int which) {
+                            dialog.show();
 
+                            DB.child(id).removeValue()
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(context, "Successfully deleted shopping list !", Toast.LENGTH_SHORT).show();
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            FirebaseDatabase.getInstance().getReference().child("Invitation")
+                                    .addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                                Invitation invitation = ds.getValue(Invitation.class);
+                                                if (invitation.getListID().equals(id))
+                                                    ds.getRef().removeValue();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            Log.e(TAG, "onCancelled: ", databaseError.toException());
+
+                                        }
+                                    });
+                        }
+                    });
+
+
+                    builder.create().show();
                 }
+
             });
 
 
