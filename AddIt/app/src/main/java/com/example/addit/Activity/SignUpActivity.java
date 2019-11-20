@@ -71,7 +71,6 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
-                                    Log.d("Successful", "onComplete: sucsess");
                                     FirebaseUser firebaseUser=_Auth.getCurrentUser();
                                     String uid=firebaseUser.getUid();
                                     Log.d("UID", "onComplete: user id="+uid);
@@ -80,7 +79,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                                     DatabaseReference db= FirebaseDatabase.getInstance().getReference("Users");
                                     db.child(uid).setValue(user);
-                                    Toast.makeText(getApplicationContext(),"Successful sign up",Toast.LENGTH_LONG);
+                                    Toast.makeText(getApplicationContext(),"successfully sign up",Toast.LENGTH_LONG);
                                     startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
                                     dialog.dismiss();
                                 }

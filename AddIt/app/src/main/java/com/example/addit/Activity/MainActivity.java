@@ -57,12 +57,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d("Successful", "onComplete: success");
-                            Toast.makeText(MainActivity.this, "Successful log in", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Successfully log in", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
                             dialog.dismiss();
                         } else {
-                            Log.d("fail", "onComplete: fail");
                             Toast.makeText(MainActivity.this, "Failed log in :(\nYour email or password is wrong", Toast.LENGTH_LONG).show();
                             dialog.dismiss();
 

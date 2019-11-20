@@ -10,16 +10,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.addit.Fragment.MyListsFragment;
+import com.example.addit.Fragment.UsersFragment;
 import com.example.addit.Model.Invitation;
+import com.example.addit.Model.Item;
 import com.example.addit.Model.User;
 import com.example.addit.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import com.squareup.picasso.Picasso;
@@ -71,6 +81,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserHolder> 
 
         holder.name.setText(name);
         holder.email.setText(email);
+        holder.position=position;
         holder.setId(userList.get(position).getId());
         try{
             Picasso.get().load(image).placeholder(R.drawable.ic_profile).into(holder.image);
@@ -115,6 +126,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserHolder> 
         private ImageView add_user_btn;
         private DatabaseReference DB;
         private int status_invitation=STATUS_NOT_SEND;
+        private int position;
 
 
         public UserHolder(@NonNull View itemView) {
@@ -150,7 +162,12 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserHolder> 
                             }
                         }
                     }
+                    else {
+                        if (status_invitation == STATUS_MEMBER && !userId.equals(managerId)) {
+                            removeMember();
 
+                        }
+                    }
                 }
             });
         }
@@ -188,6 +205,29 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserHolder> 
                             Toast.makeText(context, "onFailure: failed to added user", Toast.LENGTH_SHORT).show();
                         }
                     });
+        }
+        private void removeMember(){
+            Log.d(TAG, "removeMember: posit="+position);
+            membersList.remove(position);
+           FirebaseDatabase.getInstance().getReference().child("Shopping List").child(listId).child("members").setValue(membersList)
+                   .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(context, "You have successfully left the shopping list!", Toast.LENGTH_LONG).show();
+
+                            FragmentManager fragmentManager=((FragmentActivity) context).getSupportFragmentManager();
+                            Fragment myFragment = new MyListsFragment();
+                            fragmentManager.beginTransaction().replace(R.id.fragment_container, myFragment).addToBackStack(null).commit();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context, "You have failed to left the list", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
         }
     }
 }

@@ -172,7 +172,7 @@ public class EditItemFragment extends Fragment {
 
     public void ImageDialog(){
         dialog=new ProgressDialog(getActivity());
-        dialog.setMessage("Updating Profile Photo...");
+        dialog.setMessage("Updating Photo...");
         dialog.show();
         String options[] = {"Camera", "Gallery"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

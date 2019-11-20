@@ -208,7 +208,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
             PopupMenu popup = new PopupMenu(view.getContext(),view );
             MenuInflater inflater = popup.getMenuInflater();
             inflater.inflate(R.menu.list_menu, popup.getMenu());
-            popup.setOnMenuItemClickListener(new MyMenuItemClickListener(itemView,id,DB));
+            popup.setOnMenuItemClickListener(new MyMenuItemClickListener(itemView,id,DB,managerId));
             popup.show();
         }
 
@@ -236,11 +236,11 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
    public class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
 
       private TextView list_name,update_name, list_note,update_note,list_date;
-      private String id;
+      private String id,manager_id;
       private DatabaseReference DB;
       private ImageButton delete_btn;
       private  Button cancel_btn,update_btn;
-        public MyMenuItemClickListener(View itemView,String id,  DatabaseReference DB) {
+        public MyMenuItemClickListener(View itemView,String id,  DatabaseReference DB,String manager_id) {
             list_name = itemView.findViewById(R.id.name);
             list_note = itemView.findViewById(R.id.note);
             update_name = itemView.findViewById(R.id.update_name);
@@ -249,6 +249,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
             cancel_btn = itemView.findViewById(R.id.cancel_btn);
             update_btn=itemView.findViewById(R.id.update_btn);
             delete_btn = itemView.findViewById(R.id.delete_btn);
+            this.manager_id=manager_id;
             this.id=id;
             this.DB=DB;
         }
@@ -287,7 +288,9 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
                    String new_name=update_name.getText().toString();
                    update_name.setVisibility(View.INVISIBLE);
                    list_name.setVisibility(View.VISIBLE);
-                   delete_btn.setVisibility(View.VISIBLE);
+                   if(manager_id.equals(userId)){
+                       delete_btn.setVisibility(View.VISIBLE);
+                   }
                    update_btn.setVisibility(View.INVISIBLE);
                    cancel_btn.setVisibility(View.INVISIBLE);
                    //update database
@@ -302,7 +305,9 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
                    cancel_btn.setVisibility(View.INVISIBLE);
                    update_name.setVisibility(View.INVISIBLE);
                    list_name.setVisibility(View.VISIBLE);
-                   delete_btn.setVisibility(View.VISIBLE);
+                   if(manager_id.equals(userId)){
+                       delete_btn.setVisibility(View.VISIBLE);
+                   }
 
                }
            });
@@ -327,7 +332,9 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
                    update_note.setVisibility(View.INVISIBLE);
                    list_note.setVisibility(View.VISIBLE);
-                   delete_btn.setVisibility(View.VISIBLE);
+                   if(manager_id.equals(userId)){
+                       delete_btn.setVisibility(View.VISIBLE);
+                   }
                    update_btn.setVisibility(View.INVISIBLE);
                    cancel_btn.setVisibility(View.INVISIBLE);
 //                  update database
@@ -338,7 +345,9 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
            cancel_btn.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
-                   delete_btn.setVisibility(View.VISIBLE);
+                   if(manager_id.equals(userId)){
+                       delete_btn.setVisibility(View.VISIBLE);
+                   }
                    update_btn.setVisibility(View.INVISIBLE);
                    cancel_btn.setVisibility(View.INVISIBLE);
                    update_note.setVisibility(View.INVISIBLE);
