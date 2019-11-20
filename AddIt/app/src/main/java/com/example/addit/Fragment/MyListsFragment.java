@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -87,36 +88,31 @@ public class MyListsFragment extends Fragment {
 
 
         // Add new shopping list
+
+
+
         plus_btn.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceType")
             @Override
             public void onClick(final View view) {
+                AlertDialog.Builder myDialog = new AlertDialog.Builder(getContext());
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                View myView = inflater.inflate(R.layout.create_list, null);
+                final AlertDialog dialog = myDialog.create();
+                dialog.setView(myView);
 
-                AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
-                builder.setTitle("Add List");
+                final EditText list_name = myView.findViewById(R.id.list_name);
+                final EditText note = myView.findViewById(R.id.note);
+                Button add_btn = myView.findViewById(R.id.add_btn);
+                final Button cancel_btn = myView.findViewById(R.id.cancel_btn);
 
-                LinearLayout linearLayout=new LinearLayout(getActivity());
-                linearLayout.setOrientation(LinearLayout.VERTICAL);
-                linearLayout.setPadding(10,10,10,10);
-
-                final EditText list_name=new EditText(getActivity());
-                list_name.setHint("List name");
-                list_name.setId(0);
-                linearLayout.addView(list_name);
-                final EditText note=new EditText(getActivity());
-                note.setHint("Note");
-                linearLayout.addView(note);
-                builder.setView(linearLayout);
-
-                builder.setPositiveButton("Add List", new DialogInterface.OnClickListener() {
+                add_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dial, int which) {
+                    public void onClick(View view) {
                         String list_name_txt = list_name.getText().toString().trim();
                         String note_txt = note.getText().toString().trim();
-                        //check validation
-                        if (!(isNotEmpty(list_name_txt, list_name) || isNotEmpty(note_txt, note)))
-                            return;
 
+                        if (!isNotEmpty(list_name_txt, list_name) || !isNotEmpty(note_txt, note))
+                            return;
 
                         String id = DB.push().getKey();
                         Log.d("ADD LIST", "onClick: id=" + id);
@@ -126,21 +122,23 @@ public class MyListsFragment extends Fragment {
                         members.add(userId);
                         listData.setMembers(members);
                         DB.child(id).setValue(listData);
+                        dialog.dismiss();
 
                     }
                 });
-                builder.setNegativeButton("Cancel",new DialogInterface.OnClickListener(){
 
+                cancel_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View view) {
                         dialog.dismiss();
                     }
                 });
-                builder.create().show();
+
+
+
+                dialog.show();
             }
         });
-
-
 
 
 
@@ -159,7 +157,7 @@ public class MyListsFragment extends Fragment {
                 dialog.dismiss();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     ShoppingListData list = ds.getValue(ShoppingListData.class);
-                    Log.d(TAG, "onDataChange: "+list.getMembers()+"current="+currentUser+"result="+list.getMembers().contains(userId));
+//                    Log.d(TAG, "onDataChange: "+list.getMembers()+"current="+currentUser+"result="+list.getMembers().contains(userId));
                     if(list.getMembers().contains(userId))
                         shoppingLists.add(list);
 

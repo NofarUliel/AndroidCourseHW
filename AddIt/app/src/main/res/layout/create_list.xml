@@ -2,27 +2,35 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/create_item"
+    android:id="@+id/input_data"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
-
     <EditText
-        android:id="@+id/item_name"
+        android:id="@+id/list_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:fontFamily="@font/rubik_light"
-        android:hint="@string/item_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/addItem"
+        android:hint="List name"
+        app:layout_constraintEnd_toEndOf="@+id/addlist"
+        app:layout_constraintHorizontal_bias="0.962"
+        app:layout_constraintStart_toEndOf="@+id/addlist"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addItem"
+        app:layout_constraintTop_toBottomOf="@+id/addlist"
         tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/note"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rubik_light"
+        android:hint="Note"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_name" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -30,53 +38,54 @@
         android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_name">
+        app:layout_constraintTop_toBottomOf="@+id/note">
 
         <Button
-            android:id="@+id/add_item_btn"
+            android:id="@+id/add_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginRight="10dp"
+            android:background="@drawable/primary_btn"
+            android:text="Add list"
             android:fontFamily="@font/rubik_light"
-            android:text="@string/add_item"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cancel_btn"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/note"
-            app:layout_constraintVertical_bias="0.0"
-            android:background="@drawable/primary_btn"/>
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
-            android:id="@+id/cancel_item_btn"
+            android:id="@+id/cancel_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/white_purple_btn"
+            android:text="Cancel"
             android:fontFamily="@font/rubik_light"
-            android:text="@string/cancel"
             android:textColor="#4E54F1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/add_btn"
             app:layout_constraintTop_toBottomOf="@+id/note"
             app:layout_constraintVertical_bias="0.0" />
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/addItem"
+        android:id="@+id/addlist"
         android:layout_width="640dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:fontFamily="@font/rubik_light"
         android:gravity="center"
-        android:text="@string/add_item"
+        android:text="Add list"
         android:textColor="#4E54F1"
         android:textSize="20dp"
         android:textStyle="bold"
