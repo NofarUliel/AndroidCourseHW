@@ -1,6 +1,7 @@
 package com.example.addit.Adapters;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
@@ -10,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,7 +36,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import static com.example.addit.Validation.isNotEmpty;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder>{
     private final String TAG="ItemAdapter";
@@ -220,67 +219,45 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder>{
 
 
         private void deleteItem() {
-            DB.child("Item").child(item.getId()).removeValue()
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(context, "Item deleted!", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }
-
-        private void editName(){
+            final ProgressDialog dialog=new ProgressDialog(context);
+            dialog.setMessage("Delete item");
 
             AlertDialog.Builder builder= new AlertDialog.Builder(context);
-            builder.setTitle("Edit item name");
+            builder.setTitle("Are you sure you want to delete this item?");
 
             LinearLayout linearLayout=new LinearLayout(context);
             linearLayout.setOrientation(LinearLayout.VERTICAL);
             linearLayout.setPadding(10,10,10,10);
-
-            final EditText item_name=new EditText(context);
-            item_name.setHint("Item name");
-
-            linearLayout.addView(item_name);
             builder.setView(linearLayout);
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dia, int which) {
+                    dia.dismiss();
+                    dialog.dismiss();
 
-            builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                }
+            });
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dial, int which) {
-                    String item_name_txt = item_name.getText().toString().trim();
-
-                    //check validation
-                    if (!isNotEmpty(item_name_txt, item_name))
-                        return;
-                    DB.child("Item").child(item.getId()).child("name").setValue(item_name_txt)
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(context, "Updated item name!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
+                    dialog.show();
+                    DB.child("Item").child(item.getId()).removeValue()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(context, "Successfully deleted item!", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }
+                            });
                 }
-            });
-            builder.setNegativeButton("Cancel",new DialogInterface.OnClickListener(){
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
+                });
             builder.create().show();
         }
     }
