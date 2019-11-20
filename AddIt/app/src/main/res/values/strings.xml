@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">AddIt</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="sign_up_link">You do not have account? sign up</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="confirm_pass">Confirm password</string>
+    <string name="name">User name</string>
+    <string name="item_name">item name</string>
+    <string name="add_item">Add item</string>
+    <string name="cancel">Cancel</string>
+    <string name="price">Price</string>
+    <string name="amount">Amount </string>
+    <string name="update">update </string>
+    <string name="list_name">List name </string>
+    <string name="empty_item_list">There is no items in list \n Please add items!!! </string>
+    <string name="total_price">Total price: </string>
+    <string name="price_ils">0.00₪ </string>
+    <string name="empty_shopping_lists">You don\'t have shopping lists add a new list </string>
+    <string name="notifications">Notifications </string>
+    <string name="empty_notification">You don\'t have a new notification </string>
+    <string name="find_user">Find user to share the list with </string>
+    <string name="users">Users: </string>
+    <string name="send_invitation">send invitation </string>
+    <string name="log_out">log out </string>
+    <string name="list_shared_with">The list shared with: </string>
+    <string name="item_amount">item amount </string>
+    <string name="item_price">item price </string>
+    <string name="list_invitation">List invitation </string>
+    <string name="date">date </string>
+    <string name="manager">MANAGER </string>
+    <string name="my_lists">My lists </string>
+    <string name="note">note </string>
+
+</resources>

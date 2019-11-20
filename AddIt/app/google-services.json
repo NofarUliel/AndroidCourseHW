@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "496704321904",
+    "firebase_url": "https://addit-27040.firebaseio.com",
+    "project_id": "addit-27040",
+    "storage_bucket": "addit-27040.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:496704321904:android:be0da289833fbad47e37b5",
+        "android_client_info": {
+          "package_name": "com.example.addit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "496704321904-d5aqor0cj06sesfsvr3g3jkdaddq917l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.addit",
+            "certificate_hash": "0530096f9691d3e33e8b44f8691d6ea51c15056c"
+          }
+        },
+        {
+          "client_id": "496704321904-u9cdd1i3e13s4n2qsfm1fgj3de2je41s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABigL2FBe1hYVp44pCRNlHgIWtjZ3Uy4A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "496704321904-u9cdd1i3e13s4n2qsfm1fgj3de2je41s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
