@@ -341,6 +341,9 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
                    delete_btn.setVisibility(View.VISIBLE);
                    update_btn.setVisibility(View.INVISIBLE);
                    cancel_btn.setVisibility(View.INVISIBLE);
+                   update_note.setVisibility(View.INVISIBLE);
+                   list_note.setVisibility(View.VISIBLE);
+
                }
            });
 
