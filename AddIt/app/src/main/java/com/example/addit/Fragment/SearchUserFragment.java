@@ -156,7 +156,7 @@ public class SearchUserFragment extends Fragment {
                                 }
 
                             }
-                            usersAdapter = new UsersAdapter(usersList,listId,membersList,InvitationList,managerId);
+                            usersAdapter = new UsersAdapter(usersList,listId,membersList,InvitationList,managerId,getContext());
                             usersAdapter.notifyDataSetChanged();
                             recyclerView.setAdapter(usersAdapter);
                         }
@@ -190,7 +190,7 @@ public class SearchUserFragment extends Fragment {
                                 }
 
                             }
-                            usersAdapter = new UsersAdapter(usersList,listId,membersList,InvitationList,managerId);
+                            usersAdapter = new UsersAdapter(usersList,listId,membersList,InvitationList,managerId,getContext());
                             usersAdapter.notifyDataSetChanged();
                             recyclerView.setAdapter(usersAdapter);
                         }
@@ -223,7 +223,7 @@ public class SearchUserFragment extends Fragment {
                             if (!user.getId().equals(userId)) {
                                 usersList.add(user);
                             }
-                            usersAdapter = new UsersAdapter(usersList,listId,membersList,InvitationList,managerId);
+                            usersAdapter = new UsersAdapter(usersList,listId,membersList,InvitationList,managerId,getContext());
                             recyclerView.setAdapter(usersAdapter);
                         }
                         if(usersList.isEmpty()){

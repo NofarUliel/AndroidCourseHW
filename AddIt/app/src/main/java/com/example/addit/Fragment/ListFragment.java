@@ -31,7 +31,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -172,11 +171,11 @@ public class ListFragment extends Fragment {
                     itemList.add(item);
                     if(!item.isMark()) {
                         total += (item.getPrice() * item.getAmount());
-                        total_price.setText(total + "₪");
                     }
 
                     itemAdapter = new ItemAdapter(itemList,DB,getActivity(),user);
                     recyclerView.setAdapter(itemAdapter);
+                    total_price.setText(total + "₪");
                 }
                 if (itemList.isEmpty()) {
                     msg.setVisibility(View.VISIBLE);

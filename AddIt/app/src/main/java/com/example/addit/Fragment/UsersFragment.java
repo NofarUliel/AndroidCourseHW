@@ -135,7 +135,7 @@ public class UsersFragment extends Fragment {
                                        User user = ds.getValue(User.class);
                                         if(user.getId().equals(userID)) {
                                             member_users.add(user);
-                                            usersAdapter = new UsersAdapter(member_users,listId,membersList,InvitationList,managerID);
+                                            usersAdapter = new UsersAdapter(member_users,listId,membersList,InvitationList,managerID,getContext());
                                             recyclerView.setAdapter(usersAdapter);
                                         }
                                     }

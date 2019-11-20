@@ -1,11 +1,13 @@
 package com.example.addit.Adapters;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +38,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserHolder> 
     private  final int STATUS_MEMBER=1;
     private  String listId;
     private String managerId;
+    private Context context;
     private List<User> userList;
     private List<String> membersList;
     private List<Invitation> invitationList;
@@ -43,13 +46,14 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserHolder> 
 
 
     public UsersAdapter() { }
-    public UsersAdapter( List<User> userList,String listId,List<String> membersList, List<Invitation> invitationList,String managerId)
+    public UsersAdapter( List<User> userList,String listId,List<String> membersList, List<Invitation> invitationList,String managerId,Context context)
     {
         this.userList = userList;
         this.listId=listId;
         this.membersList=membersList;
         this.invitationList=invitationList;
         this.managerId=managerId;
+        this.context=context;
     }
 
     @NonNull
@@ -174,14 +178,14 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserHolder> 
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Log.d(TAG, "onSuccess: added user to list");
+                            Toast.makeText(context, "Invitation successfully sent!", Toast.LENGTH_SHORT).show();
                             add_user_btn.setImageResource(R.drawable.ic_email);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG, "onFailure: failed to added user");
+                            Toast.makeText(context, "onFailure: failed to added user", Toast.LENGTH_SHORT).show();
                         }
                     });
         }
